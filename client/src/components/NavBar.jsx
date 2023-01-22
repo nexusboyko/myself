@@ -15,6 +15,9 @@ const Navbar = () => {
           <li>
             <Link to="/stretch">stretch</Link>
           </li>
+          <li>
+            <Link to="/quotes">quotes</Link>
+          </li>
         </ul>
       </div>
     </>

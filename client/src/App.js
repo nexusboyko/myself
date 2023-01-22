@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar/navbar";
+import Navbar from "./components/NavBar";
 import Home from "./pages/home";
 import Meditate from "./pages/meditate";
 import Stretch from "./pages/stretch";
+import Quotes from "./pages/quotes.js";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/meditate" element={<Meditate />}></Route>
           <Route path="/stretch" element={<Stretch />}></Route>
+          <Route path="/quotes" element={<Quotes />}></Route>
         </Routes>
       </BrowserRouter>
     </>
