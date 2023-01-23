@@ -6,4 +6,57 @@ $theme-colors: (
 
 $font-family-sans-serif: 'Inter', sans-serif;
 
+
+#root {
+  background-color: black;
+}
+
+.quotes-page-color {
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(to right top, #008077, #06aca1);
+}
+.quotes {
+  background: white;
+  background: radial-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+}
+.quotes-card {
+  color: rgba(105, 84, 84);
+  transition: 0.1s ease-in;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(3rem);
+}
+.quotes-card:hover {
+  backdrop-filter: none;
+  transform: scale(1.05);
+  -webkit-box-shadow: 0px 10px 23px -12px rgba(255,255,255,0.5);
+  -moz-box-shadow: 0px 10px 23px -12px rgba(255,255,255,0.5);
+  box-shadow: 0px 10px 23px -12px rgba(255,255,255,0.5);
+}
+
+
+.meditate-page-color {
+  min-height: 100vh;
+  background: linear-gradient(to right top, #e66465, #9198e5);
+}
+.meditate {
+  min-height: 50vh;
+  background: white;
+  background: radial-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+}
+.meditate-card {
+  color: rgba(105, 84, 84);
+  transition: 0.1s ease-in;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(3rem);
+}
+.meditate-card:hover {
+  backdrop-filter: none;
+  transform: scale(1.05);
+  -webkit-box-shadow: 0px 10px 23px -12px rgba(255,255,255,0.5);
+  -moz-box-shadow: 0px 10px 23px -12px rgba(255,255,255,0.5);
+  box-shadow: 0px 10px 23px -12px rgba(255,255,255,0.5);
+}
+
 @import '/node_modules/bootstrap/scss/bootstrap.scss';
