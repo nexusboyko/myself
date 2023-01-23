@@ -12,8 +12,21 @@ export const getQuotes = async (req, res) => {
   }
 };
 
+// load single (random) quote
+export const getQuote = async (req, res) => {
+  console.log("Getting single quote..");
+
+  try {
+    // aggregate function finds a sample sized random # of objects
+    const singleQuote = await Quote.aggregate([{ $sample: { size: 1 } }]);
+    res.status(201).json(singleQuote);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
+
 // upload quote
-export const createQuote = async (req, res) => {
+export const addQuote = async (req, res) => {
   const post = req.body;
   console.log("Post created 👍");
   
@@ -31,13 +44,14 @@ export const createQuote = async (req, res) => {
   }
 };
 
-// load single quote
-export const getQuote = async (req, res) => {
-  console.log("Getting single quote..");
+// delete quote
+export const delQuote = async (req, res) => {
+  const id = req.params.id;
+  console.log("Quote removed 🗑️");
 
   try {
-    const singleQuote = await Quote.findOne();
-    res.status(201).json(singleQuote);
+    await Quote.findByIdAndDelete(id);
+    res.status(201).json({ success: true, msg: "Quote deleted" });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }

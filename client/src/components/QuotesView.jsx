@@ -14,24 +14,48 @@ const getQuotes = async () => {
   }
 };
 
+const getQuote = async () => {
+  try {
+    // gets array response from API to get data (post)
+    const { data } = await api.fetchQuote();
+    return data;
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 const QuotesView = () => {
   const [quotesList, setQuotesList] = useState([]);
+  const [quote, setQuote] = useState([]);
   
   useEffect(() => {
+    // get all quotes
     getQuotes().then(x => {
       console.log(x); 
       setQuotesList(x);
+    });
+    // get one quote
+    getQuote().then(x => {
+      console.log(x);
+      setQuote(x);
     });
   }, []);
 
   return (
     <>
-      <h5 className="h5">Your Quotes</h5>
-      <ul className="row">
-        {Array.from(quotesList).map((quote) => {
-          return <Quote key={quote._id} {...quote} />
-        })}
-      </ul>
+      <div className="container quotes rounded-5 p-4">
+        <h5>All Quotes</h5>
+        <ul className="row gap-3 p-2">
+          {Array.from(quotesList).map((quote) => {
+            return <Quote key={quote._id} {...quote} />
+          })}
+        </ul>
+        <h5>One quote</h5>
+        <div>
+          {quote && <Quote {...quote[0]} />}
+        </div>
+      </div>
     </>
   );
 }

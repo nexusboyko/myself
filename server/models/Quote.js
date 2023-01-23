@@ -7,7 +7,7 @@ const quoteSchema = new mongoose.Schema({
   },
   author: {
     type: String,
-    required: true
+    default: ""
   },
   dateCreated: {
     type: Date,
