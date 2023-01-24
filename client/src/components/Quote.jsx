@@ -21,12 +21,12 @@ const Quote = (props) => {
   return (
     <>
       <div className="col-md-3 p-0">
-        <div className="quotes-card rounded-3 p-3">
+        <div className="quote-card rounded-3 p-3 border border-3 border-start-0 border-top-0 border-white border-opacity-25">
           <div className="">
             <h5 className="">"{props.text}"</h5>
             <p className="">{props.author}</p>
             {Math.abs((new Date() - new Date(props.dateCreated))) <= (5*60*1000) && <p>Edit</p>}
-            <button className="btn btn-sm btn-primary" onClick={e => removeQuote(props._id)}> <small>Remove</small> </button>
+            <button className="btn btn-sm bg-light" onClick={e => removeQuote(props._id)}> <small>Remove</small> </button>
             <p><small>{new Date(props.dateCreated).toDateString()}</small></p>
           </div>
         </div>

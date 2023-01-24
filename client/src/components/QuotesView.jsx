@@ -44,7 +44,7 @@ const QuotesView = () => {
 
   return (
     <>
-      <div className="container quotes rounded-5 p-4">
+      <div className="container glass-block rounded-3 p-4 mb-4">
         <h5>All Quotes</h5>
         <ul className="row gap-3 p-2">
           {Array.from(quotesList).map((quote) => {
