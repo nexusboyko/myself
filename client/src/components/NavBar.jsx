@@ -1,22 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const page = useLocation().pathname;
+
   return (
     <>
-      <nav className="container">
-        <ul className="navbar">
-          <li className="nav-link">
-            <Link to="/">home</Link>
+      <nav className="container border p-2 mb-4">
+        <ul className="d-flex justify-content-center align-items-center">
+          <li className="">
+            <Link to="/" className={`${page === "/" ? "active" : ""}`}>home</Link>
           </li>
-          <li className="nav-link">
-            <Link to="/meditate">meditate</Link>
+          <li className="">
+            <Link to="/meditate" className={`${page === "/meditate" ? "active" : ""}`}>meditate</Link>
           </li>
-          <li className="nav-link">
-            <Link to="/stretch">stretch</Link>
+          <li className="">
+            <Link to="/stretch" className={`${page === "/stretch" ? "active" : ""}`}>stretch</Link>
           </li>
-          <li className="nav-link">
-            <Link to="/quotes">quotes</Link>
+          <li className="">
+            <Link to="/quotes" className={`${page === "/quotes" ? "active" : ""}`}>quotes</Link>
           </li>
         </ul>
       </nav>
