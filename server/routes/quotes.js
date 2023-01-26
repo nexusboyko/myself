@@ -4,6 +4,7 @@ import {
   getQuote,
   addQuote,
   delQuote,
+  editQuote,
 } from "../controllers/quotes.js";
 
 const router = express.Router();
@@ -11,6 +12,7 @@ const router = express.Router();
 router.get("/", getQuotes);
 router.get("/quote", getQuote);
 router.post("/add", addQuote);
-router.delete("/:id", delQuote);
+router.delete("/delete/:id", delQuote);
+router.patch("/edit/:id", editQuote);
 
 export default router;

@@ -2,11 +2,10 @@ import Quote from "../models/Quote.js";
 
 // load all quotes
 export const getQuotes = async (req, res) => {
-  console.log("Getting all quotes..");
-
   try {
     const allQuotes = await Quote.find();
     res.status(200).json(allQuotes);
+    console.log("All quotes loaded 🔢");
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -14,12 +13,11 @@ export const getQuotes = async (req, res) => {
 
 // load single (random) quote
 export const getQuote = async (req, res) => {
-  console.log("Getting single quote..");
-
   try {
     // aggregate function finds a sample sized random # of objects
     const singleQuote = await Quote.aggregate([{ $sample: { size: 1 } }]);
     res.status(201).json(singleQuote);
+    console.log("Single quote loaded 📃");
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -27,18 +25,18 @@ export const getQuote = async (req, res) => {
 
 // upload quote
 export const addQuote = async (req, res) => {
-  const post = req.body;
-  console.log("Post created 👍");
+  const quote = req.body;
   
-  // convert inputted post to Quote schema for upload
+  // convert inputted quote to Quote schema for upload
   const newQuote = new Quote({
-    text: post.text,
-    author: post.author
+    text: quote.text,
+    author: quote.author
   });
 
   try {
     await newQuote.save();
     res.status(201).json(newQuote);
+    console.log("Quote created 👍");
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -47,11 +45,26 @@ export const addQuote = async (req, res) => {
 // delete quote
 export const delQuote = async (req, res) => {
   const id = req.params.id;
-  console.log("Quote removed 🗑️");
 
   try {
     await Quote.findByIdAndDelete(id);
     res.status(201).json({ success: true, msg: "Quote deleted" });
+    console.log("Quote removed 🗑️");
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
+};
+
+// edit quote
+export const editQuote = async (req, res) => {
+  const id = req.params.id;
+  const quote = req.body;
+  console.log(quote);
+
+  try {
+    await Quote.updateOne({ _id: `${id}` }, { $set: quote });
+    res.status(201).json({ success: true, msg: "Quote updated" });
+    console.log("Quote updated ⬆️");
   } catch (error) {
     res.status(409).json({ message: error.message });
   }

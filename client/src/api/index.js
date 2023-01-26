@@ -4,6 +4,11 @@ import axios from "axios";
 const url = "http://localhost:3001/quotes";
 
 export const fetchQuotes = () => axios.get(url);
+
 export const fetchQuote = () => axios.get(url + "/quote");
+
 export const createQuote = (newQuote) => axios.post(url + "/add", newQuote);
-export const deleteQuote = (id) => axios.delete(url + `/${id}`);
+
+export const deleteQuote = (id) => axios.delete(url + `/delete/${id}`);
+
+export const editQuote = (editedQuote, id) => axios.patch(url + `/edit/${id}`, editedQuote);

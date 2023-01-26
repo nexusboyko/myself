@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactDOM from 'react-dom';
 import * as api from "../api";
 
 // delete quote
 const removeQuote = async (id) => {
   console.log(id);
   try {
-    // gets array response from API to get data (post)
     const res = await api.deleteQuote(id);
     console.log(res);
 
@@ -14,20 +14,49 @@ const removeQuote = async (id) => {
   }
 };
 
+// edit quote
+const changeQuote = async (quote, id) => {
+  try {
+    const res = await api.editQuote(quote, id);
+    console.log(res);
+
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 const Quote = (props) => {
   // const fiveMin = (5*60*1000);
   // const timeSinceCreated = Math.abs((new Date() - new Date(props.dateCreated)));
+  // const [editedQuote, setEditedQuote] = useState();
+
+  const handleEdit = async (id, e) => {
+    e.preventDefault();
+
+    let quote = { text: "", author: "", dateCreated: Date.now() };
+
+    ReactDOM.render (
+      
+    );   
+    
+    <button className="btn btn-sm bg-light m-1" onClick={e => changeQuote(quote, props._id)}> <small>Confirm</small> </button>
+  };
 
   return (
     <>
-      <div className="col-md-3 p-0">
-        <div className="quote-card rounded-3 p-3 border border-3 border-start-0 border-top-0 border-white border-opacity-25">
+      <div className="col-lg-3 p-0">
+        <div className="quote-card rounded-3 p-3">
           <div className="">
             <h5 className="">"{props.text}"</h5>
-            <p className="">{props.author}</p>
-            {Math.abs((new Date() - new Date(props.dateCreated))) <= (5*60*1000) && <p>Edit</p>}
-            <button className="btn btn-sm bg-light" onClick={e => removeQuote(props._id)}> <small>Remove</small> </button>
-            <p><small>{new Date(props.dateCreated).toDateString()}</small></p>
+            <p className="">{props.author !== "" && props.author}</p>
+            
+            <div className="d-flex justify-content-between align-items-center">
+              <div className="quote-card-buttons">
+                <button className="btn btn-sm bg-light m-1" onClick={e => removeQuote(props._id)}> <small>Remove</small> </button>
+                <button className="btn btn-sm bg-light m-1" onClick={e => handleEdit(props._id)}> <small>Edit</small> </button>
+              </div>
+              <p className="m-0"><small>{new Date(props.dateCreated).toDateString()}</small></p>
+            </div>
           </div>
         </div>
       </div>
