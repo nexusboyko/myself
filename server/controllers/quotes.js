@@ -59,7 +59,6 @@ export const delQuote = async (req, res) => {
 export const editQuote = async (req, res) => {
   const id = req.params.id;
   const quote = req.body;
-  console.log(quote);
 
   try {
     await Quote.updateOne({ _id: `${id}` }, { $set: quote });
