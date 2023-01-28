@@ -11,7 +11,7 @@ const createQuote = async (quote) => {
   }
 }
 
-const AddQuote = () => {
+const AddQuote = (props) => {
   const [newQuote, setNewQuote] = useState({ text: "", author: "" });
 
   const handleSubmit = async (e) => {
@@ -19,26 +19,29 @@ const AddQuote = () => {
 
     console.log(newQuote);
     createQuote(newQuote);
+
+    setNewQuote({ text: "", author: "" });
+
+    props.updateQuotes();
   };
 
   return (
     <>
-      <div className="container glass-block rounded-3 p-4">
-        <h5>Add Quote</h5>
-        <form className="" onSubmit={handleSubmit}>
+      <div className="glass-block rounded-3 p-4">
+        <form id="add-quote-form" className="" onSubmit={handleSubmit}>
           <div className="form-group mb-3">
             <input
               type="text"
               className="form-control"
               id="quoteText"
-              placeholder=". . ."
+              placeholder=""
               value={newQuote.text}
               onChange={(e) => setNewQuote({ ...newQuote, text: e.target.value })}
             ></input>
-            <small className="form-text text-muted">
+            <small className="form-text text-light">
               <em>
                 Remember! You can only remove this quote after{" "}
-                <strong>30 days</strong>. Think about what you choose to add.
+                <u>30 days</u>. Think about what you choose to add.
               </em>
             </small>
           </div>
@@ -47,16 +50,14 @@ const AddQuote = () => {
               type="text"
               className="form-control"
               id="quoteAuthor"
-              placeholder=". . ."
+              placeholder=""
               value={newQuote.author}
               onChange={(e) =>
                 setNewQuote({ ...newQuote, author: e.target.value })
               }
             ></input>
           </div>
-          <button type="submit" className="btn bg-light rounded-circle">
-            <i className="bi bi-patch-plus"></i>
-          </button>
+          <button type="submit" className="btn btn-sm bg-light">Add quote</button>
         </form>
       </div>
     </>

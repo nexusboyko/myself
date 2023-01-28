@@ -3,7 +3,6 @@ import * as api from "../api";
 
 // delete quote
 const removeQuote = async (id) => {
-  console.log(id);
   try {
     const res = await api.deleteQuote(id);
     console.log(res);
@@ -39,8 +38,10 @@ const Quote = (props) => {
             <p className="">{props.author !== "" && props.author}</p>
             <div className="d-flex justify-content-between align-items-center">
               <div className="quote-card-buttons">
-                <button className="btn btn-sm bg-light m-1" onClick={e => removeQuote(props._id)}> <small>Remove</small> </button>
-                {/* <button className="btn btn-sm bg-light m-1" onClick={e => handleEdit(props._id)}> <small>Edit</small> </button> */}
+                <button className="btn btn-sm bg-light m-1" onClick={e => {
+                  removeQuote(props._id);
+                  props.updateQuotes();
+                }}> <small>Remove</small> </button>
                 <button className="btn btn-sm bg-light m-1" onClick={() => setEditMode(true)}> <small>Edit</small> </button>
               </div>
               <p className="m-0"><small>{new Date(props.dateCreated).toDateString()}</small></p>
@@ -48,7 +49,10 @@ const Quote = (props) => {
             {editMode && 
                 (<>
                   <div className="container glass-block rounded-3 p-4">
-                    <form className="">
+                    <form className="" onSubmit={(e) => {
+                      e.preventDefault();
+                      props.updateQuotes();
+                    }}>
                       <div className="form-group mb-3">
                         <input
                           type="text"
@@ -70,9 +74,10 @@ const Quote = (props) => {
                         ></input>
                       </div>
                     </form>
-                    <button className="btn btn-sm bg-light m-1" onClick={e => {
+                    <button type="submit" className="btn btn-sm bg-light m-1" onClick={e => {
                       changeQuote(editedQuote, props._id);
                       setEditMode(false);
+                      props.updateQuotes();
                     }}> <small>Confirm</small> </button>
                     <button className="btn btn-sm bg-light m-1" onClick={e => { setEditMode(false) }}> <small>Discard</small> </button>
                   </div>
