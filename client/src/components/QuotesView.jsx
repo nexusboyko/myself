@@ -49,6 +49,7 @@ const QuotesView = () => {
   function updateQuotes() {
     setUpdate(true);
   }
+  // try function that adds new quote THEN adds to server in background
 
   return (
     <>
