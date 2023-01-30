@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../images/logo.svg";
 
 const Home = () => {
@@ -11,7 +12,7 @@ const Home = () => {
 
         <div
           id="hero-container"
-          className="container d-flex flex-column align-items-center"
+          className="container d-flex flex-column align-items-center mb-5"
         >
           <div className="display-3 mb-5">
             Hey, welcome to{" "}
@@ -22,14 +23,34 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="container home row gap-3 rounded-5 p-4">
-          {/* <div className="col-md-5 glass-block rounded-3 p-4">
-            <h5 className="text-white">About</h5>
-          </div>
-          <div className="col-md-5 glass-block rounded-3 p-4">
-            <h5 className="text-white">About</h5>
-          </div> */}
-        </div>
+        <ul className="nav d-flex flex-row justify-content-center align-items-center px-5 pb-5">
+          <li className="nav-link">
+            <Link to="/meditate" className="unstyled-link">
+              <div className="home-link home-link-meditate rounded-circle d-flex justify-content-center align-items-center">
+                meditate
+              </div>
+            </Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/stretch" className="unstyled-link">
+              <div className="home-link home-link-stretch rounded-circle d-flex justify-content-center align-items-center">
+                stretch
+              </div>
+            </Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/quotes" className="unstyled-link">
+              <div className="home-link home-link-quotes rounded-circle d-flex justify-content-center align-items-center">
+                quotes
+              </div>
+            </Link>
+          </li>
+        </ul>
+
+        <h4 className="">
+          Tap one of these <span id="app-text-logo">activities</span> to get
+          started.
+        </h4>
       </div>
     </>
   );

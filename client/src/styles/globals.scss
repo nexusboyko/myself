@@ -9,14 +9,20 @@ $font-family-sans-serif: 'Inter', sans-serif;
 // 
 
 #app-text-logo {
-  color: #519a84;
+  color: #6DBDA5;
   font-weight: bold;
 }
-
-.home {
-  min-height: 50vh;
-  background: linear-gradient(to right top, #008077, #06ACA1);
+.unstyled-link {
+  text-decoration: none;
+  color: white;
+  
 }
+.unstyled-link:hover {
+  color: white;
+}
+
+// home background gradient
+// background: linear-gradient(to right top, #008077, #06ACA1);
 
 // NAVBAR
 
@@ -49,6 +55,29 @@ nav > ul li {
 .glass-block {
   background: radial-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.1));
 }
+
+
+// HOME PAGE
+
+.home-link {
+  width: 150px;
+  height: 150px;
+  transition: 0.1s ease-in;
+}
+.home-link:hover {
+  transform: scale(1.2);
+}
+.home-link-meditate {
+  background: linear-gradient(to right top, #e66465, #9198e5);
+}
+.home-link-stretch {
+  background: linear-gradient(to right top, #22C1C3, #FDBB2D);
+}
+.home-link-quotes {
+  background: linear-gradient(to right top, #94BBE9, #EEAECA);
+}
+
+
 
 // QUOTES PAGE
 
