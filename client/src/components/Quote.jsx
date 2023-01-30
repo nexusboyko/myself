@@ -31,7 +31,7 @@ const Quote = (props) => {
 
   return (
     <>
-      <div className="col-lg-3 p-0">
+      <div className="col p-0">
         <div className="quote-card rounded-3 p-3">
           <div className="">
             <h5 className="">"{props.text}"</h5>
