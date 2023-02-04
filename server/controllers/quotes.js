@@ -30,7 +30,8 @@ export const addQuote = async (req, res) => {
   // convert inputted quote to Quote schema for upload
   const newQuote = new Quote({
     text: quote.text,
-    author: quote.author
+    author: quote.author,
+    from: quote.from
   });
 
   try {

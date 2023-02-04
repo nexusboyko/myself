@@ -9,6 +9,10 @@ const quoteSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
+  from: {
+    type: String,
+    default: ""
+  },
   dateCreated: {
     type: Date,
     default: Date.now()

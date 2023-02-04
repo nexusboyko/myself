@@ -26,7 +26,7 @@ const changeQuote = async (quote, id) => {
 const Quote = (props) => {
   // const fiveMin = (5*60*1000);
   // const timeSinceCreated = Math.abs((new Date() - new Date(props.dateCreated)));
-  const [editedQuote, setEditedQuote] = useState({ text: "", author: "" });
+  const [editedQuote, setEditedQuote] = useState({ text: props.text, author: props.author, from: props.from });
   const [editMode, setEditMode] = useState();
 
   return (
@@ -35,7 +35,7 @@ const Quote = (props) => {
         <div className="quote-card rounded-3 p-3">
           <div className="">
             <h5 className="">"{props.text}"</h5>
-            <p className="">{props.author !== "" && props.author}</p>
+            <p className="">{props.author !== "" && props.author}{props.from !== "" && <em>{`, ${props.from}`}</em>}</p>
             <div className="d-flex justify-content-between align-items-center">
               <div className="quote-card-buttons">
                 <button className="btn btn-sm bg-light m-1" onClick={e => {
@@ -54,12 +54,24 @@ const Quote = (props) => {
                       props.updateQuotes();
                     }}>
                       <div className="form-group mb-3">
-                        <input
+                        <textarea
+                          rows={5}
                           type="text"
                           className="form-control"
                           id="quoteText"
-                          placeholder={props.text}
+                          defaultValue={props.text}
                           onChange={(e) => setEditedQuote({ ...editedQuote, text: e.target.value })}
+                        ></textarea>
+                      </div>
+                      <div className="form-group mb-3">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="quoteAuthor"
+                          defaultValue={props.author}
+                          onChange={(e) =>
+                            setEditedQuote({ ...editedQuote, author: e.target.value })
+                          }
                         ></input>
                       </div>
                       <div className="form-group mb-3">
@@ -67,9 +79,9 @@ const Quote = (props) => {
                           type="text"
                           className="form-control"
                           id="quoteAuthor"
-                          placeholder={props.author}
+                          defaultValue={props.from}
                           onChange={(e) =>
-                            setEditedQuote({ ...editedQuote, author: e.target.value })
+                            setEditedQuote({ ...editedQuote, from: e.target.value })
                           }
                         ></input>
                       </div>
