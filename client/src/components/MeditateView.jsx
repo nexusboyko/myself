@@ -30,7 +30,7 @@ const QuotesView = () => {
         <div>
           {quote && 
           <>
-            <div className="glass-block rounded-3 p-4 mb-4 text-center text-white">
+            <div className="p-4 text-center text-white">
               <p className="display-6 mb-2">"{quote[0].text}"</p>
               <p> {quote[0].author}</p>
             </div>

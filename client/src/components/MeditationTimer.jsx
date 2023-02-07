@@ -38,8 +38,8 @@ const MeditationTimer = () => {
   return(
     <>
       <div className="d-flex flex-column align-items-center justify-content-center">
-        <h1 className="text-white p-5"><strong><span>{Math.floor(timer / 60)}</span>:<span>{timer % 60 < 10 ? `0${timer % 60}` : `${timer % 60}`}</span></strong></h1>
-        <div className="d-flex">
+        <h1 className="text-white"><strong><span>{Math.floor(timer / 60)}</span>:<span>{timer % 60 < 10 ? `0${timer % 60}` : `${timer % 60}`}</span></strong></h1>
+        <div className="d-flex p-5">
           <button className="border btn btn-lg text-white mx-1" onClick={() => {
             updateTimer(1);
             audio.play();
