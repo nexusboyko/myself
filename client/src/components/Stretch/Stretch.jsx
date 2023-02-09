@@ -1,20 +1,10 @@
-import React, { useState } from "react";
-import { useDraggable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
-
+import React from "react";
 
 function Stretch(props) {
-  const {attributes, listeners, setNodeRef, transform} = useDraggable({
-    id: props.id,
-  });
-  const style = {
-    transform: CSS.Translate.toString(transform),
-  }
-
   return (
     <>
-      <div ref={setNodeRef} style={style} {...listeners} {...attributes} maxWidth={"45px"} className="border">
-        {props.children}
+      <div id={props.id} draggable onDragStart={e => props.handleOnDrag(e, props.id)} className="col-md-3 quote-card rounded-3 p-3">
+        {props.id}
       </div>
     </>
   );

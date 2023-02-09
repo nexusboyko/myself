@@ -1,37 +1,41 @@
 import React, { useState }from "react";
-import { DndContext, closestCenter } from "@dnd-kit/core"
-// import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import StretchContainer from "./StretchContainer";
 import Stretch from "./Stretch";
 
 const StretchView = () => {
-  // const [stretches, setStretches] = useState(null);
-  const [parent, setParent] = useState(null);
-  const draggable = (
-    <Stretch id="draggable">
-      Drag this.
-    </Stretch>
-  )
+  const [stretches, setStretches] = useState([]);
 
-  function handleDragEnd({over}) {
-    setParent(over ? over.id : null);
+  function handleOnDrop(e) {
+    const stretchType = e.dataTransfer.getData("stretchType");
+    console.log(stretchType);
+    setStretches([...stretches, stretchType]);
+  }
+  function handleOnDropBack(e) {
+    const stretchType = e.dataTransfer.getData("stretchType");
+    var currState = [...stretches]; 
+    const i = currState.indexOf(stretchType);
+    if (i !== -1) {
+      currState.splice(i, 1);
+      setStretches(currState);
+    }
+  }
+  function handleOnDrag(e, stretchType) {
+    e.dataTransfer.setData("stretchType", stretchType);    
+  }
+  function handleDragOver(e) {
+    e.preventDefault();
   }
 
   return (
     <>
-      <DndContext onDragEnd={handleDragEnd}> 
-        <div className="container glass-block rounded-3 p-4 mb-4">
-          <h5>Routine</h5>
-          <StretchContainer id="droppable" className="border">
-            {parent == "droppable" ? draggable : "Drop here."}
-          </StretchContainer>
+      <div className="container ">
+        <div onDrop={handleOnDrop} onDragOver={handleDragOver} className="row glass-block rounded-3 p-4 mb-4">
+          <h5 className="p-0 pb-3 m-0">My routine</h5>
+          {stretches.map((stretch, i) => <Stretch id={stretch} key={i} handleOnDrag={handleOnDrag}/>)}
         </div>
-        <div className="container glass-block rounded-3 p-4">
-          <h5>My routines</h5>
-          {!parent ? draggable : null}
-        </div>
-      </DndContext>
-      
+      </div>
+
+      <StretchContainer handleOnDropBack={handleOnDropBack} handleDragOver={handleDragOver} handleOnDrag={handleOnDrag} />      
       
     </>
   );

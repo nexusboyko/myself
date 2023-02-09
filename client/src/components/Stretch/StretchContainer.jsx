@@ -1,18 +1,16 @@
 import React from 'react';
-import { useDroppable } from '@dnd-kit/core';
+import Stretch from "./Stretch";
 
 function StretchContainer(props) {
-  const {isOver, setNodeRef} = useDroppable({
-    id: props.id,
-  });
-  const style = {
-    opacity: isOver ? 1 : 0.5,
-  };
 
   return (
-    <div ref={setNodeRef} style={style}>
-      {props.children}
-    </div>
+    <div className="container">
+        <div id="StretchContainer" onDrop={props.handleOnDropBack} onDragOver={props.handleDragOver} className="row glass-block rounded-3 p-4">
+          <h5 className="p-0 m-0">Stretches</h5>
+          <Stretch id={1} handleOnDrag={props.handleOnDrag}/>
+          <Stretch id={2} handleOnDrag={props.handleOnDrag}/>
+        </div>
+      </div>
   );
 }
 
