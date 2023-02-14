@@ -1,5 +1,5 @@
 import React from "react";
-import QuotesView from "../components/QuotesView"
+import QuotesView from "../components/Quotes/QuotesView"
 
 const Quotes = () => {
   return (
