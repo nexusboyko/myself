@@ -1,49 +1,49 @@
-import React, { useState }from "react";
+import React, { useEffect, useState }from "react";
 import StretchContainer from "./StretchContainer";
 import Stretch from "./Stretch";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
+
 const StretchView = () => {
   const [stretches, setStretches] = useState([]);
 
-  // adding to routine
-  function handleOnDrop(e) {
-    const stretch = e.dataTransfer.getData("stretch");
-    setStretches([...stretches, stretch]);
+  const [listRef] = useAutoAnimate();
+
+  function stretchAdd(stretch) {
+    const obj = {
+      pos: stretches.length,
+      ...JSON.parse(stretch)
+    }
+    setStretches([...stretches, obj]);
   }
-  // removing by placing back in list
-  function handleOnDropBack(e) {
-    const stretch = e.dataTransfer.getData("stretch");
-    var currState = [...stretches]; 
-    const i = currState.indexOf(stretch);
+  function stretchRemove(pos) {
+    console.log(stretches.find(stretch => stretch.pos === pos));
+    const i = stretches.findIndex(stretch => stretch.pos === pos);
+    var currState = [...stretches];
     if (i !== -1) {
       currState.splice(i, 1);
       setStretches(currState);
     }
   }
-  // dragging
-  function handleOnDrag(e, stretch) {
-    e.dataTransfer.setData("stretch", JSON.stringify(stretch));
-  }
-  function handleDragOver(e) {
-    e.preventDefault();
-  }
 
-  const [listRef] = useAutoAnimate();
+  useEffect(() => {
+    // console.log(stretches);
+  }, [stretches]);
 
   return (
     <>
       <div className="container">
-        <div onDrop={handleOnDrop} onDragOver={handleDragOver} className="row glass-block rounded-3 p-4 mb-4" ref={listRef}>
+        <div className="row glass-block rounded-3 p-4 mb-4" ref={listRef}>
           <h5 className="p-0 pb-3 m-0">My routine</h5>
           {stretches.map((stretch, i) => {
-            const stretchObject = JSON.parse(stretch);
-            return (<Stretch key={i} id={stretchObject.id} name={stretchObject.name} handleOnDrag={handleOnDrag}/>);
+            return (
+              <Stretch key={i} id={i} position={stretch.pos} name={stretch.name} stretchRemove={stretchRemove}/>
+            );
           })}
         </div>
       </div>
 
-      <StretchContainer handleOnDropBack={handleOnDropBack} handleDragOver={handleDragOver} handleOnDrag={handleOnDrag} />      
+      <StretchContainer stretchAdd={stretchAdd} />      
       
     </>
   );

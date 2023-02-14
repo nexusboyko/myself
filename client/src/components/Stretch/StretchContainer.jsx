@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Stretch from "./Stretch";
+import DefaultStretch from "./DefaultStretch";
 
 function StretchContainer(props) {
-  const [stretches, setStretches] = useState([
+  const [defaultStretches, setDefaultStretches] = useState([
     {
       id: 1,
       name: "Scorpion"
@@ -15,9 +15,15 @@ function StretchContainer(props) {
 
   return (
     <div className="container">
-        <div id="StretchContainer" onDrop={props.handleOnDropBack} onDragOver={props.handleDragOver} className="row glass-block rounded-3 p-4">
+        <div className="row glass-block rounded-3 p-4">
           <h5 className="p-0 pb-3 m-0">Stretches</h5>
-          {stretches.map((stretch, i) => <Stretch key={i} id={stretch.id} name={stretch.name} handleOnDrag={e => props.handleOnDrag(e, stretch)} />)}
+
+          {defaultStretches.map((stretch, i) => {
+            return (
+              <DefaultStretch key={i} id={stretch.id} name={stretch.name} stretchAdd={props.stretchAdd}/>
+            );
+          })}
+
         </div>
       </div>
   );
