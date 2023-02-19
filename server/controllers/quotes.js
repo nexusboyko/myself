@@ -59,11 +59,15 @@ export const delQuote = async (req, res) => {
 // edit quote
 export const editQuote = async (req, res) => {
   const id = req.params.id;
-  const quote = req.body;
+  const quote = {
+    _id: id,
+    ...req.body,
+    dateCreated: Date.now()
+  };
 
   try {
     await Quote.updateOne({ _id: `${id}` }, { $set: quote });
-    res.status(201).json({ success: true, msg: "Quote updated" });
+    res.status(201).json({ success: true, msg: "Quote updated", id: id, quote: quote });
     console.log("Quote updated ⬆️");
   } catch (error) {
     res.status(409).json({ message: error.message });
