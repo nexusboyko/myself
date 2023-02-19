@@ -1,28 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import * as api from "../../api";
 import autoAnimate from '@formkit/auto-animate'
-
-// delete quote
-const removeQuote = async (id) => {
-  try {
-    const res = await api.deleteQuote(id);
-    console.log(res);
-
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-// edit quote
-const changeQuote = async (quote, id) => {
-  try {
-    const res = await api.editQuote(quote, id);
-    console.log(res);
-
-  } catch (error) {
-    console.log(error.message);
-  }
-}
+import { useDispatch } from "react-redux";
+import { updateQuote, deleteQuote } from "../../actions/quotes";
 
 const Quote = (props) => {
   // const fiveMin = (5*60*1000);
@@ -30,6 +9,14 @@ const Quote = (props) => {
   const [editedQuote, setEditedQuote] = useState({ text: props.text, author: props.author, from: props.from });
   const [editMode, setEditMode] = useState();
   const parent = useRef(null);
+  const dispatch = useDispatch();
+
+  const changeQuote = (quote, id) => {
+    dispatch(updateQuote(quote, id));
+  }
+  const removeQuote = (id) => {
+    dispatch(deleteQuote(id));
+  }
 
   useEffect(() => {
     parent.current && autoAnimate(parent.current)
@@ -46,7 +33,6 @@ const Quote = (props) => {
               <div className="quote-card-buttons">
                 <button className="btn btn-sm bg-light m-1" onClick={e => {
                   removeQuote(props._id);
-                  props.updateQuotes();
                 }}> <small>Remove</small> </button>
                 <button className="btn btn-sm bg-light m-1" onClick={() => setEditMode(true)}> <small>Edit</small> </button>
               </div>
@@ -95,7 +81,6 @@ const Quote = (props) => {
                     <button type="submit" className="btn btn-sm bg-light m-1" onClick={e => {
                       changeQuote(editedQuote, props._id);
                       setEditMode(false);
-                      props.updateQuotes();
                     }}> <small>Confirm</small> </button>
                     <button className="btn btn-sm bg-light m-1" onClick={e => { setEditMode(false) }}> <small>Discard</small> </button>
                   </div>

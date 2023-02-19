@@ -1,28 +1,17 @@
 import React, { useState } from "react";
-import * as api from "../../api"
-
-const createQuote = async (quote) => {
-  try {
-    const res = await api.createQuote(quote);
-    console.log(res);
-
-  } catch (error) {
-    console.log(error.message);
-  }
-}
+import { useDispatch } from "react-redux";
+import { createQuote } from "../../actions/quotes";
 
 const AddQuote = (props) => {
   const [newQuote, setNewQuote] = useState({ text: "", author: "", from: "" });
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(newQuote);
-    createQuote(newQuote);
-
+    dispatch(createQuote(newQuote));
+    // reset form fields
     setNewQuote({ text: "", author: "", from: "" });
-
-    props.updateQuotes();
   };
 
   return (

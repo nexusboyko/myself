@@ -1,50 +1,29 @@
 import React, { useEffect, useState } from "react";
-import * as api from "../../api";
 import AddQuote from "./AddQuote"
 import Quote from "./Quote";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
-// get array of quotes
-const getQuotes = async () => {
-  try {
-    // gets array response from API to get data (post)
-    const { data } = await api.fetchQuotes();
-    return data;
-
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+import { useSelector } from "react-redux";
 
 const QuotesView = () => {
-  const [quotesList, setQuotesList] = useState([]);
-  const [update, setUpdate] = useState(false);
+  const quotes = useSelector((state) => state.reducers.quotes);
+  const [quotesList, setQuotesList] = useState(quotes);
   const [listRef] = useAutoAnimate();
   
   useEffect(() => {
-    // get all quotes
-    getQuotes().then(x => {
-      console.log(x); 
-      setQuotesList(x);
-    });
-    setUpdate(false);
-  }, [update]);
-
-  function updateQuotes() {
-    setUpdate(true);
-  }
-  // try function that adds new quote THEN adds to server in background
+    setQuotesList(quotes);
+  }, [quotes]);
 
   return (
     <>
       <div className="glass-block rounded-3 p-4 mb-4">
         <h5>All Quotes</h5>
         <ul className="row gap-3 p-3" ref={listRef}>
-          {Array.from(quotesList).map((quote) => {
-            return <Quote key={quote._id} {...quote} updateQuotes={updateQuotes} />
+          {Array.from(quotesList).map((quote, i) => {
+            return <Quote key={i} {...quote} />
           })}
         </ul>
-        <AddQuote updateQuotes={updateQuotes}/>
+        <AddQuote />
       </div>
       
     </>
