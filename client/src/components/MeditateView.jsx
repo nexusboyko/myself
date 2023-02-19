@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from "react";
-import * as api from "../api";
 import MeditationTimer from "../components/MeditationTimer";
-
-const getQuote = async () => {
-  try {
-    // gets array response from API to get data (post)
-    const { data } = await api.fetchQuote();
-    return data;
-
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+import { useSelector } from "react-redux";
 
 const QuotesView = () => {
-  const [quote, setQuote] = useState([{text: "", author: ""}]);
-  
+  const [quote, setQuote] = useState({text: "", author: ""});
+  const randomQuote = useSelector((state) => state.reducers.quotes[Math.floor(Math.random()*state.reducers.quotes.length)]);
+
   useEffect(() => {
-    // get one quote
-    getQuote().then(x => {
-      console.log(x);
-      setQuote(x);
-    });
-  }, []);
+    setQuote(randomQuote);
+  }, [randomQuote]);
 
   return (
     <>
@@ -31,8 +17,8 @@ const QuotesView = () => {
           {quote && 
           <>
             <div className="p-4 text-center text-white">
-              <p className="display-6 mb-2">"{quote[0].text}"</p>
-              <p> {quote[0].author}</p>
+              <p className="display-6 mb-2">"{quote.text}"</p>
+              <p> {quote.author}</p>
             </div>
             <MeditationTimer />
           </>}
