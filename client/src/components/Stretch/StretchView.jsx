@@ -3,9 +3,10 @@ import StretchContainer from "./StretchContainer";
 import Stretch from "./Stretch";
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
+const stretchesFromLocalStorage = JSON.parse(localStorage.getItem("stretches") || "[]");
 
 const StretchView = () => {
-  const [stretches, setStretches] = useState([]);
+  const [stretches, setStretches] = useState(stretchesFromLocalStorage);
 
   const [listRef] = useAutoAnimate();
 
@@ -27,7 +28,7 @@ const StretchView = () => {
   }
 
   useEffect(() => {
-    // console.log(stretches);
+    localStorage.setItem("stretches", JSON.stringify(stretches));
   }, [stretches]);
 
   return (
