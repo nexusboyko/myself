@@ -21,7 +21,6 @@ export const createQuote = (quote) => async (dispatch) => {
 export const updateQuote = (quote, id) => async (dispatch) => {
   try {
     const { data } = await api.editQuote(quote, id);
-    console.log("UPDATED", data);
     dispatch({ type: "UPDATE", payload: data });
   } catch (error) {
     console.log(error.message);
@@ -30,7 +29,6 @@ export const updateQuote = (quote, id) => async (dispatch) => {
 
 export const deleteQuote = (id) => async (dispatch) => {
   try {
-    console.log("DELETED", id);
     await api.deleteQuote(id);
     dispatch({ type: "DELETE", payload: id });
   } catch (error) {

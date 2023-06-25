@@ -6,22 +6,27 @@ const Home = () => {
   return (
     <>
       <div className="container nav d-flex flex-column align-items-center justify-content-center">
-        <div id="hero-img-container" className="mb-5 p-5">
+        <div id="hero-img-container" className="p-4">
           <img src={logo} alt="logo" height={"50px"} />
         </div>
 
         <div
           id="hero-container"
-          className="container d-flex flex-column align-items-center mb-5"
+          className="container d-flex flex-column align-items-center mb-4"
         >
           <div className="display-3 mb-5">
             Hey, welcome to{" "}
-            <span id="app-text-logo" className="">
+            <span id="app-text-logo">
               myself
             </span>
             .
           </div>
         </div>
+
+        <h2 className="mb-4">
+          Tap one of these <span id="app-text-logo">activities</span> to get
+          started.
+        </h2>
 
         <ul className="nav d-flex flex-row justify-content-center align-items-center px-5 pb-5">
           <li className="nav-link">
@@ -46,11 +51,6 @@ const Home = () => {
             </Link>
           </li>
         </ul>
-
-        <h4 className="">
-          Tap one of these <span id="app-text-logo">activities</span> to get
-          started.
-        </h4>
       </div>
     </>
   );
