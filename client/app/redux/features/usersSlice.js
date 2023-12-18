@@ -9,24 +9,28 @@ const initialState = {
 
 export const fetchUserInfo = createAsyncThunk(
   'users/fetchUserTokens',
-  async (code, thunkAPI) => {
-    console.log('fetchUserTokens', code);
-    const res = await fetch(
-      '/api/users/myprofile', {
-        method: 'POST',
-        body: JSON.stringify({
-          code: code
-        }),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+  async (code, { rejectWithValue }) => {
+    try {
+      const res = await fetch(
+        '/api/users/myprofile', {
+          method: 'POST',
+          body: JSON.stringify({
+            code: code
+          }),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
         }
-      }
-    )
+      )
 
-    const json = await res.json();
+      const json = await res.json();
 
-    return json;
+      return json;
+    } catch (error) {
+        
+      return rejectWithValue(error.message);
+    }
   }
 );
 
