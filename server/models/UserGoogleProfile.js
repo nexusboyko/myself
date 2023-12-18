@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const userGoogleProfile = new Schema({
+const userGoogleProfileSchema = new Schema({
   _id: {
     type: String
   },
@@ -41,6 +41,6 @@ const userGoogleProfile = new Schema({
 // save model under database "myself"
 const db = mongoose.connection.useDb('myself');
 
-const UserGoogleProfile = db.model("UserGoogleProfile", userGoogleProfile);
+const UserGoogleProfile = db.model("UserGoogleProfile", userGoogleProfileSchema);
 
 export default UserGoogleProfile;
