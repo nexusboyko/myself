@@ -30,21 +30,6 @@ export const fetchUserInfo = createAsyncThunk(
   }
 );
 
-// export const fetchQuotes = createAsyncThunk(
-//   'quotes/fetchQuotes',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const res = await fetch('/api/quotes');
-//       const data = await res.json();
-
-//       return data;
-//     } catch (error) {
-      
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
-
 function parseUserInfo(state, payload) {
   Object.keys(payload).forEach((key) => {
     state[key] = payload[key];
@@ -55,16 +40,16 @@ const usersSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    // updateAuthToken(state, action) {
-    //   state.accessToken = action.payload.accessToken;
-    //   state.tokenType = action.payload.tokenType;
-    // }
+    signOut(state) {
+      state = initialState;
+      return state;
+    }
   },
   extraReducers(builder) {
     builder
     .addCase(fetchUserInfo.pending, (state) => {
       state.status = 'loading';
-      state.error = '';
+      state.error = null;
     })
     .addCase(fetchUserInfo.fulfilled, (state, action) => {
       state.status = 'succeeded';
@@ -73,7 +58,7 @@ const usersSlice = createSlice({
       state.tokenType = action.payload.tokenType;
       parseUserInfo(state, action.payload.userInfo);
       
-      state.error = '';
+      state.error = null;
     })
     .addCase(fetchUserInfo.rejected, (state, action) => {
       state.status = 'failed';
@@ -83,6 +68,6 @@ const usersSlice = createSlice({
 });
 
 export const selectUserProfile = (state) => state.users.authProfile;
-export const { updateAuthToken } = usersSlice.actions;
+export const { signOut } = usersSlice.actions;
 
 export default usersSlice.reducer;
