@@ -11,10 +11,6 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const { name, profilePicture } = props.user || {};
 
-  useEffect(() => {
-    console.log('user info', props.user);
-  }, [props.user]);
-
   const onLoginFailure = (res) => {
     console.error('Google Login Failure', res);
   };
