@@ -13,15 +13,24 @@
   font-style: normal;
 }
 
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.simple-shadow {
+  filter: drop-shadow(0px 12px 0px 1px rgba(0,0,0,0.15));
+  -webkit-filter: drop-shadow(0px 12px 0px 1px rgba(0,0,0,0.15));
+}
+
 .glass-effect {
   background: radial-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.1));
 }
 .gradient-1 {
-  background: linear-gradient(to right top, #e66465, #9198e5);
+  background: linear-gradient(to right top, rgba(230, 100, 101, 0.55), rgba(145, 152, 229, 0.55));
 }
 .gradient-2 {
-  background: linear-gradient(to right top, #22C1C3, #FDBB2D);
+  background: linear-gradient(to right top, rgba(34, 193, 195, 0.55), rgba(253, 187, 45, 0.55));
 }
 .gradient-3 {
-  background: linear-gradient(to right top, #94BBE9, #EEAECA);
+  background: linear-gradient(to right top, rgba(148, 187, 233, 0.55), rgba(238, 174, 202, 0.55));
 }

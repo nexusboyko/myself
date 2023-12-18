@@ -1,10 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   content: ['./app/**/*.{js,jsx}'],
   darkMode: 'class',
   theme: {
     colors: {
-      'primary': '#6DBDA5',
+      ...colors,
+      myself: '#6DBDA5',
     },
     extend: {
       fontFamily: {

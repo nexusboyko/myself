@@ -50,6 +50,10 @@ module.exports = {
           'css-loader', "postcss-loader"
         ]
       },
+      {
+        test: /\.(ico|png|jpg|gif|svg)$/i,
+        use: ['file-loader'],
+      },
     ]
   },
 
