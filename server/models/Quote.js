@@ -16,9 +16,7 @@ const quoteSchema = new mongoose.Schema({
   dateCreated: {
     type: Date,
     default: Date.now()
-  },
-});
+  }
+})
 
-const Quote = mongoose.model("Quote", quoteSchema);
-
-export default Quote;
+export default mongoose.model("Quote", quoteSchema);

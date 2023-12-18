@@ -1,18 +1,19 @@
 import express from "express";
-import {
-  getQuotes,
-  getQuote,
-  addQuote,
-  delQuote,
-  editQuote,
-} from "../controllers/quotes.js";
+import { fetchAllQuotes } from "../controllers/quotes.js";
 
 const router = express.Router();
 
-router.get("/", getQuotes);
-router.get("/quote", getQuote);
-router.post("/add", addQuote);
-router.delete("/delete/:id", delQuote);
-router.patch("/edit/:id", editQuote);
+router.get("/", async (req, res) => {
+  try {
+    const all = await fetchAllQuotes();
+    
+    res.status(200).json(all);
+    console.log('Loaded all quotes');
+  } catch (error) {
+    res.status(500).send({
+      message: error.message
+    });
+  }
+});
 
 export default router;
