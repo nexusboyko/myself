@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { fetchQuotes } from '../features/quotesSlice';
+import { fetchQuotes } from '../redux/features/quotesSlice';
 
 const QuotesView = (props) => {
   const dispatch = useDispatch();
@@ -20,8 +20,8 @@ const QuotesView = (props) => {
   }
 
   return (
-    <div>
-      <ul className="list-disc">{renderQuotesList()}</ul>
+    <div className="gradient-3 w-full h-fit p-5 rounded-lg">
+      <ul className="list-none">{renderQuotesList()}</ul>
     </div>
   );
 }

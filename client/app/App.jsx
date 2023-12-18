@@ -1,62 +1,22 @@
-import React, { useEffect} from "react";
-// import QuotesView from "./components/QuotesView";
-import { useSelector, useDispatch, connect } from 'react-redux';
-import { updateAuthToken, fetchUserInfo } from './features/usersSlice';
-import { useGoogleLogin } from '@react-oauth/google';
-
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+import React from "react";
+import { connect } from 'react-redux';
+import Header from "./components/Header";
+import DashboardView from "./components/DashboardView";
+import logo from '../public/images/logo.svg';
 
 const App = (props) => {
-  const dispatch = useDispatch();
-  const { name, profilePicture } = props.user || {};
-
-  useEffect(() => {
-    console.log('user info', props.user);
-  }, [props.user]);
-
-  const onLoginFailure = (res) => {
-    console.error('Google Login Failure', res);
-  };
-
-  const onLoginSuccess = ({ code }) => {
-    // get access token, verify, and fetch user info
-    dispatch(fetchUserInfo(code));
-  };
-
-  const onFinish = () => {};
-
-  const signIn = useGoogleLogin({
-    clientId,
-    onSuccess: onLoginSuccess,
-    onError: onLoginFailure,
-    scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid',
-    isSignedIn: true,
-    accessType: 'offline',
-    // (authorization code flow)
-    flow: 'auth-code',
-  });
-
   return (
-    <div className="font-inter flex flex-col gap-3 justify-center items-center">
-      { !props.user.accessToken ? 
-        <button className="btn" type="button" onClick={() => signIn()}>
-          Google Sign In
-        </button> :
-        <button className="btn" type="button" onClick={() => console.log('signOut()')}>
-          Sign Out
-        </button>
-      }
-
-      {
-        !props.user.accessToken ? 
-        <div>Loading profile...</div> :
-        <div>
-          <div>
-            <img src={profilePicture} alt={name} />
-          </div>
-          <small>{name}</small>
+    <div className="w-[60%] m-auto">
+      <Header />
+      {props.user.accessToken ? (
+        <DashboardView />
+      ) : (
+        <div className="h-[60vh] flex flex-col gap-y-5 justify-center items-center">
+          <img src={logo} className="h-20 mb-6" alt="logo" />
+          <h1 className="font-bold text-5xl">Hi, myself.</h1>
+          <h2 className="text-xl">Sign in with Google to get started!</h2>
         </div>
-      }
+      )}
     </div>
   );
 }
