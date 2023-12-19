@@ -4,7 +4,7 @@ import UserGoogleProfile from '../models/UserGoogleProfile.js';
 
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 10);
 
-export async function generateUserId() {
+async function generateUserId() {
   return nanoid();
 }
 
