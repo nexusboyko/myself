@@ -2,17 +2,87 @@ import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 const initialState = {
   status: 'idle',
-  quotes: [],
+  list: null,
+  error: null
 };
 
-export const fetchQuotes = createAsyncThunk(
-  'quotes/fetchQuotes',
-  async (_, { rejectWithValue }) => {
+export const createQuoteCard = createAsyncThunk(
+  'quotes/createQuoteCard',
+  async (quoteCard, { rejectWithValue }) => {
     try {
-      const res = await fetch('/api/quotes');
-      const data = await res.json();
+      const res = await fetch(`/api/quotes/create`, {
+        method: 'POST',
+        body: JSON.stringify(quoteCard),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
 
-      return data;
+      const json = await res.json();
+
+      return json;
+    } catch (error) {
+      
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchAllQuoteCards = createAsyncThunk(
+  'quotes/fetchAllQuoteCards',
+  async (userId, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`/api/quotes/user/${userId}`);
+
+      const json = await res.json();
+
+      return json;
+    } catch (error) {
+      
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteQuoteCardById = createAsyncThunk(
+  'quotes/deleteQuoteCardById',
+  async (quoteCardId, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`/api/quotes/delete/${quoteCardId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+
+      const json = await res.json();
+
+      return json;
+    } catch (error) {
+      
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateQuoteCard = createAsyncThunk(
+  'quotes/createQuoteCard',
+  async (updatedQuoteCard, { rejectWithValue }) => {
+    try {
+      console.log(updatedQuoteCard);
+      const res = await fetch(`/api/quotes/update/${updatedQuoteCard._id}`, {
+        method: 'PUT',
+        body: JSON.stringify(updatedQuoteCard),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      const json = await res.json();
+
+      return json;
     } catch (error) {
       
       return rejectWithValue(error.message);
@@ -33,15 +103,44 @@ export const quotesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchQuotes.fulfilled, (state, action) => {
+      .addCase(createQuoteCard.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.quotes = action.payload;
+        state.error = null;
+        state.list.push(action.payload);
       })
-      .addCase(fetchQuotes.pending, (state) => {
+      .addCase(createQuoteCard.pending, (state, action) => {
         state.status = 'pending';
+        state.error = null;
       })
-      .addCase(fetchQuotes.rejected, (state) => {
+      .addCase(createQuoteCard.rejected, (state, action) => {
         state.status = 'failed';
+        state.error = action.error;
+      })
+      .addCase(fetchAllQuoteCards.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.error = null;
+        state.list = action.payload;
+      })
+      .addCase(fetchAllQuoteCards.pending, (state, action) => {
+        state.status = 'pending';
+        state.error = null;
+      })
+      .addCase(fetchAllQuoteCards.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error;
+      })
+      .addCase(deleteQuoteCardById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.list = state.list.filter(quote => quote._id !== action.payload._id);
+        state.error = null;
+      })
+      .addCase(deleteQuoteCardById.pending, (state, action) => {
+        state.status = 'pending';
+        state.error = null;
+      })
+      .addCase(deleteQuoteCardById.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error;
       });
   }
 });
