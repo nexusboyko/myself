@@ -9,9 +9,9 @@ module.exports = {
   entry: './app/index.js',
 
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './dist/'),
     filename: 'main.js',
-    publicPath: '/'
+    publicPath: './'
   },
 
   mode: 'development',
